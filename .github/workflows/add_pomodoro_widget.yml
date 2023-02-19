@@ -1,0 +1,26 @@
+name: Add Pomodoro Widget to Notion
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  add_pomodoro_widget:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      - name: Install dependencies
+        run: |
+          pip install notion-client
+      - name: Add Pomodoro Widget to Notion
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          DATABASE_ID: "<your-database-id>"
+        run: |
+          python add_pomodoro_widget.py
